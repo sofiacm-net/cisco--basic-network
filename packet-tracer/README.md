@@ -32,9 +32,7 @@ The goal is to establish communication between all four networks and verify conn
 - Routing and Switching
 - Network Troubleshooting
 
-## Project Status
 
-In Progress — Building and configuring the network.
 
 ## Learning Goal
 
