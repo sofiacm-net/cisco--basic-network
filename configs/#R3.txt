@@ -1,0 +1,56 @@
+R3
+
+Router>enable
+Router#conf te
+Enter configuration commands, one per line.  End with CNTL/Z.
+Router(config)#hostname R3
+R3(config)#interface serial 0/1/1
+R3(config-if)#ip address 172.16.2.230 255.255.255.252
+R3(config-if)#ipv6 address 2001:B:B:6::2/64
+R3(config-if)#ipv6 address FE80::6:2 link-local
+R3(config-if)#no shutdown
+
+R3(config-if)#interface giga 0/0/0
+R3(config-if)#ip address 172.16.2.129 255.255.255.192
+R3(config-if)#ipv6 address 2001:B:B:3::1/64
+R3(config-if)#ipv6 address FE80::3:1 link-local
+R3(config-if)#no shutdown
+
+R3(config-if)#interface serial 0/1/0
+R3(config-if)#ip address 172.16.2.238 255.255.255.252
+R3(config-if)#ipv6 address 2001:B:B:8::2/64
+R3(config-if)#ipv6 address FE80::8:2 link-local
+R3(config-if)#no shutdown
+R3(config)#ipv6 unicast-routing
+R3(config)#do write
+R3(config)#
+R3(config)#router ospf 1
+R3(config-router)#router-id 3.3.3.3
+R3(config-router)#network 172.16.0.0 0.0.255.255 area 0
+R3(config-router)#end
+R3 CONFIGURATION 
+
+R3(config)#security passwords min-length 8
+R3(config)#login block-for 120 attempts 3 within 60
+R3(config)#enable secret Cisco2026
+R3(config)#ip domain-name lab.cisco.com
+R3(config)#crypto key generate rsa
+The name for the keys will be: R3.lab.cisco.com
+Choose the size of the key modulus in the range of 360 to 4096 for your
+  General Purpose Keys. Choosing a key modulus greater than 512 may take
+  a few minutes.
+
+How many bits in the modulus [512]: 1024
+% Generating 1024 bit RSA keys, keys will be non-exportable...[OK]
+
+R3(config)#username support secret SSHcisco2026
+*Mar 1 2:17:52.955: %SSH-5-ENABLED: SSH 1.99 has been enabled
+R3(config)#line vty 0 4
+R3(config-line)#transport input ssh
+R3(config-line)#login local
+R3(config-line)#exec-timeout 5
+R3(config-line)#exit
+R3(config)#ip ssh version 2
+R3(config)#service password-encryption
+R3(config)#banner motd #RESTRICTED ACCESS#
+R3(config)#do write

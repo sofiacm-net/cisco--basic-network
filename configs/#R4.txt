@@ -1,0 +1,33 @@
+R4 
+
+Router>enable
+Router#conf te
+Router(config)#hostname R4
+R4(config)#interface giga 0/0/0
+R4(config-if)#ip address 172.16.2.193 255.255.255.224
+R4(config-if)#ipv6 address 2001:B:B:4::1/64
+R4(config-if)#ipv6 address FE80::4:1 link-local
+R4(config-if)#no shutdown
+
+R4(config-if)#interface serial 0/1/0
+R4(config-if)#ip address 172.16.2.237 255.255.255.252
+R4(config-if)#ipv6 address 2001:B:B:8::1/64
+R4(config-if)#ipv6 address FE80::8:1 link-local
+R4(config-if)#clock rate 64000
+R4(config-if)#no shutdown
+
+R4(config-if)#interface serial 0/1/1
+R4(config-if)#ip address 172.16.2.233 255.255.255.252
+R4(config-if)#ipv6 address 2001:B:B:7::1/64
+R4(config-if)#ipv6 address FE80::7:1 link-local
+R4(config-if)#clock rate 64000
+R4(config-if)#no shutdown
+
+R4(config-if)#exit
+R4(config)#ipv6 unicast-routing
+R4(config)#do write
+R4(config)#router ospf 1
+R4(config-router)#router-id 4.4.4.4
+R4(config-router)#network 172.16.0.0 0.0.255.255 area 0
+R4(config-router)#end
+

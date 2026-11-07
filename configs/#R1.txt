@@ -1,0 +1,38 @@
+R1
+Router>enable
+Router#CONFIG TE
+Enter configuration commands, one per line.  End with CNTL/Z.
+Router(config)#hostname R1
+R1(config)#interface giga 0/0/0
+R1(config-if)#ip address 172.16.1.1 255.255.255.0
+R1(config-if)#ipv6 address 2001:B:B:1::1/64
+R1(config-if)#ipv6 address FE80::1:1 link-local
+
+R1(config-if)#no shutdown
+
+R1(config-if)#interface serial 0/1/0
+
+R1(config-if)#ip address 172.16.2.225 255.255.255.252
+R1(config-if)#ipv6 address 2001:B:B:5::1/64
+R1(config-if)#ipv6 address FE80::5:1 link-local
+
+R1(config-if)#no shutdown
+R1(config)#interface serial 0/1/0
+R1(config-if)#clock rate 64000
+R1(config-if)#no shutdown
+
+
+R1(config-if)#interface serial 0/1/1
+
+R1(config-if)#ip address 172.16.2.234 255.255.255.252
+R1(config-if)#ipv6 address 2001:B:B:7::2/64
+R1(config-if)#ipv6 address FE80::7:2 link-local
+
+R1(config-if)#no shutdown
+R1(config-if)#exit
+R1(config)#ipv6 unicast-routing
+R1(config)#do write
+R1(config)#router ospf 1
+R1(config-router)#router-id 1.1.1.1
+R1(config-router)#network 172.16.0.0 0.0.255.255 area 0
+R1(config-router)#end

@@ -1,0 +1,12 @@
+S1
+Switch>enable
+Switch#confi te
+Enter configuration commands, one per line.  End with CNTL/Z.
+Switch(config)#hostname S1
+S1(config)#ip default-gateway 172.16.1.1
+S1(config)#interface vlan1
+S1(config-if)#ip address 172.16.1.2 255.255.255.0
+S1(config-if)#no shutdown
+
+S1(config-if)#exit
+S1(config)#do write

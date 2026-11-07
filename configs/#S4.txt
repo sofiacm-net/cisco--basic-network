@@ -1,0 +1,12 @@
+S4
+Switch>enable
+Switch#conf te
+
+Switch(config)#hostname S4
+S4(config)#ip default-gateway 172.16.2.193
+S4(config)#interface vlan1
+S4(config-if)#ip address 172.16.2.194 255.255.255.224
+S4(config-if)#no shutdown
+
+S4(config-if)#exit
+S4(config)#do write

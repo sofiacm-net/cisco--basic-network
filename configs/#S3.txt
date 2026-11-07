@@ -1,0 +1,36 @@
+S3 
+
+Switch>enable
+Switch#confi te
+Enter configuration commands, one per line.  End with CNTL/Z.
+Switch(config)#hostname S3
+S3(config)#ip default-gateway 172.16.2.129
+S3(config)#interface vlan1
+S3(config-if)#ip address 172.16.2.130 255.255.255.192
+S3(config-if)#no shutdown
+S3(config)#do write
+
+S3 CONFIGURATION
+
+S3(config)#enable secret Cisco2026
+S3(config)#ip domain-name lab.cisco.com
+S3(config)#crypto key generate rsa
+The name for the keys will be: S3.lab.cisco.com
+Choose the size of the key modulus in the range of 360 to 4096 for your
+  General Purpose Keys. Choosing a key modulus greater than 512 may take
+  a few minutes.
+
+How many bits in the modulus [512]: 1024
+% Generating 1024 bit RSA keys, keys will be non-exportable...[OK]
+
+S3(config)#username support secret SSHcisco2026
+*Mar 1 2:13:1.28: %SSH-5-ENABLED: SSH 1.99 has been enabled
+S3(config)#line vty 0 15
+S3(config-line)#transport input ssh
+S3(config-line)#login local
+S3(config-line)#exec-timeout 5
+S3(config-line)#exit
+S3(config)#ip ssh version 2
+S3(config)#service password-encryption
+S3(config)#banner motd #RESTRICTED ACCESS#
+S3(config)#do write
